@@ -1,7 +1,6 @@
-import { Greeter } from "./greeter";
 import { OBSService } from "./services/OBSService";
-import { io } from "socket.io-client";
 import { DispatcherService } from "./services/DispatcherService";
+const io = require("socket.io-client");
 
 (async () => {
   const obs = new OBSService();
@@ -12,12 +11,9 @@ import { DispatcherService } from "./services/DispatcherService";
     console.log(socket.id);
   });
 
-  socket.on("obs-channel", async (arg) => {
+  socket.on("obs-channel", async (arg: any) => {
     console.log("instructions: ", arg);
     const dispatcher = new DispatcherService(arg, obs);
     await dispatcher.make();
   });
 })();
-
-const g = new Greeter("Juri");
-g.greet();

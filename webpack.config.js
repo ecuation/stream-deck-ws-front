@@ -1,17 +1,13 @@
 const path = require("path");
-const webpack = require("webpack");
 
 const ROOT = path.resolve(__dirname, "src");
 const DESTINATION = path.resolve(__dirname, "dist");
 const Dotenv = require("dotenv-webpack");
-
 module.exports = {
   context: ROOT,
   plugins: [new Dotenv()],
 
-  entry: {
-    main: "./main.ts",
-  },
+  entry: "./main.ts",
 
   output: {
     filename: "[name].bundle.js",
