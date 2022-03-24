@@ -1,5 +1,5 @@
 import OBSWebSocket from "obs-websocket-js";
-import { FilterProperties, ItemProperties, Scene } from "../shared/Models";
+import { SourceProperties, ItemProperties, Scene } from "../shared/Models";
 
 export class OBSService {
   obs: OBSWebSocket;
@@ -37,14 +37,11 @@ export class OBSService {
   }
 
   async getCurrentScene(): Promise<Scene> {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const scene = await this.obs.send("GetCurrentScene");
-        resolve(scene);
-      } catch (error) {
-        reject(error);
-      }
-    });
+    try {
+      return await this.obs.send("GetCurrentScene");
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getItemCurrentStatus(itemName: string): Promise<ItemProperties> {
@@ -87,7 +84,7 @@ export class OBSService {
     }
   }
 
-  async setSourceFilterVisibility(filter: FilterProperties) {
+  async setSourceFilterVisibility(filter: SourceProperties) {
     try {
       const { sourceName, filterName, filterEnabled } = filter;
       await this.obs.send("SetSourceFilterVisibility", {

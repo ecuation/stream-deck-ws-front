@@ -13,7 +13,8 @@ export class DispatcherService {
     const insutructions = Object.keys(this.instructions) as [
       "setScene",
       "mute",
-      "setFilter"
+      "setFilter",
+      "hideSource"
     ];
 
     try {
@@ -52,6 +53,17 @@ export class DispatcherService {
       }
     } catch (error) {
       throw error;
+    }
+  }
+
+  async hideSource(): Promise<void> {
+    const actions = this.instructions.hideSource;
+    for (const filter of actions) {
+      const { sourceName } = filter;
+      await this.obs.hideItemFromCurrentScene(sourceName);
+      setTimeout(async () => {
+        await this.obs.showItemFromCurrentScene(sourceName);
+      }, 3000);
     }
   }
 }
