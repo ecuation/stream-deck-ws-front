@@ -55,12 +55,18 @@ export interface MuteProperties {
 export interface Instructions {
   setScene: string;
   mute: Array<MuteProperties>;
-  setFilter: Array<SourceProperties>;
-  hideSource: Array<SourceProperties>;
+  setFilter: Array<FilterProperties>;
+  hideAndShowSource: Array<FilterProperties>;
+  setSceneItemProperties: Array<SourceProperties>;
+  displaySource: Array<SourceProperties>;
 }
 
-export interface SourceProperties {
+export interface FilterProperties {
   sourceName: string;
   filterName: string;
   filterEnabled: boolean;
+}
+export interface SourceProperties {
+  sourceName: string;
+  visible: boolean;
 }
